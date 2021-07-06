@@ -1,0 +1,15 @@
+﻿@model Website4.Models.Model
+<option value="">-- Model Seçiniz--</option>
+@if (ViewBag.modellist != null)
+{
+
+    foreach (var item in ViewBag.modellist)
+    {
+
+        <option value="@item.Value">@item.Text </option>
+
+    }
+
+}
+
+

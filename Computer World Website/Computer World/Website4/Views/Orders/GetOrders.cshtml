@@ -1,0 +1,206 @@
+﻿@model IEnumerable<Website4.Models.Order>
+@{
+    ViewBag.Title = "GetOrderDetails";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+@* Siparişler Kullanıcıya Göstermek için Bu Sayfa Oluşturuldu *@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+
+
+
+            .container .card {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                position: relative;
+                cursor: pointer;
+                border-radius:40px;
+            }
+
+                .container .card .face {
+                    width: 300px;
+                    height: 200px;
+                    transition: 0.5s;
+                   
+                }
+
+                    .container .card .face.face1 {
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
+                        position: relative;
+                        background-image: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+                        /* background: #333;*/
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1;
+                        transform: translateY(100px);
+                    }
+
+                .container .card:hover .face.face1 {
+                    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+                   
+                    /* background: #ff0057;*/
+                    transform: translateY(0);
+                }
+
+                .container .card .face.face1 .content {
+                    opacity: 0.5;
+                    transition: 0.5s;
+                    
+                }
+
+                .container .card:hover .face.face1 .content {
+                    opacity: 1;
+
+                    
+                }
+
+                .container .card .face.face1 .content img {
+                    max-width: 100px;
+                }
+
+
+                .container .card .face.face1 .content h3 {
+                    margin: 10px 0 0;
+                    padding: 0;
+                    color: #fff;
+                    text-align: center;
+                    font-size: 1.5em;
+                }
+
+                .container .card .face.face2 {
+                    border-top: 3px #DADADA dashed ;
+                    border-top-left-radius: 2px;
+                    border-top-right-radius: 2px;
+                    position: relative;
+                    background: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    box-sizing: border-box;
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+                    transform: translateY(-100px);
+                }
+
+                .container .card:hover .face.face2 {
+                    transform: translateY(0);
+                    
+                }
+
+                .container .card .face.face2 .content p {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .container .card .face.face2 .content a {
+                    border-radius: 2px;
+                    margin: 15px 0 0;
+                    display: inline-block;
+                    text-decoration: none;
+                    font-weight: 900;
+                    color: #333;
+                    padding: 5px;
+                    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+                }
+                    .container .card .face.face2 .content a:hover {
+                        background-image: linear-gradient(60deg, #96deda 0%, #50c9c3 100%);
+                        border-radius: 6px;
+                        font-size: 15px;
+                    }
+
+    </style>
+    <title></title>
+</head>
+<body>
+
+
+    <body>
+        <div class="container" style="margin-bottom: 60px;">
+            @if (@TempData["BosSiparis"] != null)
+            {
+                <h3 align="center"><i class='bx bx-task-x'></i>@TempData["BosSiparis"]</h3>
+            }
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 editContent">
+                    <div class="card">
+                        <div class="face face1">
+                            <div class="content">
+                                @{
+                                    if (item.Status_ == false)
+                                    {
+                                        <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/nlzvfogq.json"
+                                                   trigger="morph"
+                                                   colors="primary:#000000,secondary:#000000"
+                                                   scale="51"
+                                                   style="width:80px;height:80px; margin-left:25px; ">
+                                        </lord-icon>
+                                    }
+                                    else if (item.Status_ == true)
+                                    {
+                                        <i class='bx bxs-package' style=" margin-left:30px; color: black; align-content: center; font-size: 60px;"></i>
+                                    }
+                                }
+
+                                <h3>Sipariş ID: @item.id</h3>
+                            </div>
+                        </div>
+                        <div class="face face2">
+                            <div class="content">
+                                <h4 style="font-weight: bold;">Toplam Fiyat: @item.TotalPrice TL.</h4>
+                                <p style="font-weight: 100;">
+                                    Tarih : @item.BuyingDate <br /> Adres: @item.DeliveryAdrees <br /> Durum: @if (item.Status_ == false)
+                                    {
+                                    <p>Teslim Edilmedi</p> }
+                                else
+                                {<p>Teslim Edildi</p>}</p>
+                                    <a href="@Url.Action("GetOrderDetails","OrderDetails",new {orderid=item.id })">Sipariş Detayları <i class='bx bx-right-arrow-alt'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+        </div>
+</body>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

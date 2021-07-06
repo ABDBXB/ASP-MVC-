@@ -1,0 +1,158 @@
+﻿@model Website4.Models.CateBranModelCascading
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ürün Oluşturma</title>
+
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+
+    @using (Html.BeginForm(Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" })))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ürün Ekle</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        @if (ViewBag.Category != null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.products.Category, "Kategory", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.products.Category, ViewBag.Category as SelectList, "--Kategori Seçiniz--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.products.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+          
+        }
+
+        <div class="form-group">
+            <div class="control-label col-md-2" }>Marka</div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.brandid, ViewBag.Brands as SelectList, "--Marka Seçiniz--" , htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.ModelId, "Model", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.products.ModelId, new SelectList(" "), "--Model Seçiniz--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.products.ModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <script>
+            $(document).ready(function () {
+                //$("#products_Category").change(function () {
+                //    var Cateid = $(this).val();
+                //    $.ajax({
+                //        type: "Post",
+                //        url: "/Products/GetBrandList?Cateid=" + Cateid,
+                //        contentType: "html",
+                //        success: function (response) {
+                //            $("#brandid").empty();
+                //            $("#products_ModelId").empty();
+                //            $("#brandid").append(response);
+                //            debugger
+
+                //        }
+                //    })
+                //})
+
+                $("#brandid").change(function () {
+                    var Brandid = $(this).val();
+                    $.ajax({
+                        type: "Post",
+                        url: "/Products/GetModelList?Brandid=" + Brandid,
+                        contentType: "html",
+                        success: function (response) {
+                            $("#products_ModelId").empty();
+                            $("#products_ModelId").append(response);
+
+                        }
+                    })
+                })
+            })
+
+        </script>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.Pname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.products.Pname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.products.Pname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.Explanation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.products.Explanation,  new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.products.Explanation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.products.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.products.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.products.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.products.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.products.Image_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="image" value="image" class="form-control" />
+                @Html.ValidationMessageFor(model => model.products.Image_, "", new { @class = "text-danger" })
+            <h6 class = "text-danger">@ViewBag.error</h6> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Oluştur" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+        }
+
+
+</body>
+</html>

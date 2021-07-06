@@ -1,0 +1,70 @@
+﻿@model Website4.Models.Member
+@{
+    ViewBag.Title = "DetailsMembers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Kullanıcı Detay</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <table border="1" class="table table-hover" style="margin: 50px 50px; width: 400px;">
+
+        <tr>
+            <td>Ad:</td>
+            <td>@Html.DisplayFor(model => model.FirstName) </td>
+        </tr>
+        <tr>
+            <td>Soyad:</td>
+            <td>@Html.DisplayFor(model => model.LastName) </td>
+        </tr>
+        <tr>
+            <td>Email Adresi:</td>
+            <td>@Html.DisplayFor(model => model.Email) </td>
+        </tr>
+
+        <tr>
+            <td>Telefon Numarası:</td>
+            <td>@Html.DisplayFor(model => model.Phone) </td>
+        </tr>
+        <tr>
+            <td>Adres:</td>
+            <td>@Html.DisplayFor(model => model.Address_) </td>
+        </tr>
+        <tr>
+            @* Gelen Kullanıcı Tipi Göre Erkek / Kadın Gösteririz *@
+            <td>Cinsiyet:</td>
+            @{
+                if (Model.Gender == false)
+                {
+                    <td>Erkek </td>
+                }
+                else
+                {
+                    <td>Kadın </td>
+                }
+            }
+        </tr>
+        <tr>
+            @* Gelen Kullanıcı Tipi Göre Admin  / Kullanıcı Gösteririz *@
+            <td>Kendisi:</td>
+            @{
+                if (Model.Type_ == false)
+                {
+                    <td>Admin </td>
+                }
+                else
+                {
+                    <td>Kullanıcı </td>
+                }
+            }
+        </tr>
+
+    </table>
+</body>
+</html>
+

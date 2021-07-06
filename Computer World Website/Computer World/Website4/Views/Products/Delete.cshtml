@@ -1,0 +1,103 @@
+﻿@model Website4.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ürün Silme</title>
+</head>
+<body>
+    <h3>Bu Ürün Silmek istediğinizden eminmisiniz?.</h3>
+    <div>
+        <h4>Ürün Detayları</h4>
+        <h5 style=" color: red;">@ViewBag.OrderError </h5>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Pname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Pname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Explanation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Explanation)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt>
+                Fotorğafı
+            </dt>
+
+            <dt>
+                <img src="@Url.Content(Model.Image_)" alt="@Model.Pname" width="50" height="50" />
+            </dt>
+
+
+            <dt>
+                @{
+                    if (Model.Status_ == false)
+                    {
+                        <h6>Var</h6>
+                    }
+                    else
+                    {
+                        <h6>Yok</h6>
+                    }
+                }
+            </dt>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Category1.Cname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category1.Cname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Model.Mname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Model.Mname)
+            </dd>
+
+        </dl>
+
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> 
+        </div>
+    }
+</body>
+</html>

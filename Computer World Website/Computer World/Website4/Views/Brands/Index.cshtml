@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Website4.Models.Brand>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Markalar Listesi</h2>
+
+<p>
+    @Html.ActionLink("Yeni Marka Ekle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @* isimGöstermek için / HtmlHelper *@
+            @Html.DisplayNameFor(model => model.Bname)
+        </th>
+        <th></th>
+    </tr>
+    @* Markalar Listedeki Elemanları tek tek Gösteriyoruz *@
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bname)
+        </td>
+        <td>
+            @* Burada likler Oluşturulur:
+        @Url.Action("Eylem Adı","Controller Adı",Taşıyacağı Değer)
+        Controller IDye Göre Hareket Ediyordu Bizde Şimdiki Elemenın idsi Veriyoruz
+            Kullanıcı Basınca Eyleme Gitmek için Hazır*@
+            <a href="@Url.Action("Edit","Brands",new { id = item.id })" class="btn btn-primary"><i class='bx bxs-edit'></i> Değiştir </a> |
+            <a href="@Url.Action("Details","Brands",new { id = item.id })" class="btn btn-secondary"><i class='bx bx-list-ul'></i> Detay</a> |
+            <a href="@Url.Action("Delete","Brands",new { id = item.id })" class="btn btn-danger"><i class='bx bx-x-circle'></i> Sil</a>
+        </td>
+    </tr>
+}
+
+</table>

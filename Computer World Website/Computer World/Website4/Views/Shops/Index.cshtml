@@ -1,0 +1,174 @@
+﻿@using Website4.Models
+@model IndexVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<section>
+    <div class="container-fluid" style="margin: 50px;">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Kategori</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                                        <span class="badge pull-right"><i class="bx bx-list-plus"></i></span>
+                                        Markalar
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="sportswear" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        @foreach (var item in Model.brands)
+                                        {
+
+                                            <li><a href="@Url.Action("Index","Shops",new { brand = item.id })">@Html.DisplayFor(modelItem => item.Bname)</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#mens">
+                                        <span class="badge pull-right"><i class="bx bx-list-plus"></i></span>
+                                        Kategoriler
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="mens" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        @foreach (var item in Model.categories)
+                                        {
+
+                                            <li><a href="@Url.Action("Index","Shops",new { cat = item.id })">@Html.DisplayFor(modelItem => item.Cname)</a></li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
+                                        <span class="badge pull-right"><i class="bx bx-list-plus"></i></span>
+                                        Fiyata göre
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="womens" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href="@Url.Action("Index","Shops",new { filter = 1 })">250 -> 500</a></li>
+                                        <li><a href="@Url.Action("Index","Shops",new { filter = 2 })">500 -> 750</a></li>
+                                        <li><a href="@Url.Action("Index","Shops",new { filter = 3 })">750 -> 1000</a></li>
+                                        <li><a href="@Url.Action("Index","Shops",new { filter = 4 })">1000 -> 3000</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="@Url.Action("Index","Shops",new { brand=false ,cat = false ,filter = 0 })">Filterleme Temizle</a></h4>
+                            </div>
+                        </div>
+
+
+
+                    </div><!--/category-productsr-->
+                </div>
+            </div>
+
+            
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <div class="editContent">
+                        <h1 class="text-center latestitems">Ürünlerimiz</h1>
+                    </div>
+                    <div class="wow-hr type_short">
+                        <span class="wow-hr-h">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </span>
+                    </div>
+                    <h4 style="color: red;" align="center">@ViewBag.LoginError</h4>
+                    <!-- /.productbox -->
+                    @foreach (var item in Model.products)
+                    {
+                        <div class="col-md-4 wow bounceInUp" data-wow-duration="2s">
+                            <div class="productbox">
+                                <div class="fadeshop">
+                                    <div class="captionshop text-center" style="display: none;">
+                                        <h3>@Html.DisplayFor(modelItem => item.Pname)</h3>
+                                        <p>
+                                            @item.Model.Brand.Bname
+                                        </p>
+                                        @if (item.Status_ == false)
+                                        {
+                                            <form action="/Shops/Index" method="post">
+
+                                                <input type="text" value="1" name="quantity" hidden="hidden" />
+                                                <input type="text" value="@item.id" name="productid" hidden="hidden" />
+
+                                                <input type="submit" value="Satın Al" class="send" onmouseover="this.style.backgroundColor = '#fff';this.style.color='#000'" onmouseout="this.style.backgroundColor = '#000'; this.style.color = '#fff'; this.style.transition='0.6s'"
+                                                       style="padding: 8px 12px;
+                                                  background: transparent;
+                                                  color: #fff;
+                                                  font-weight: bold;
+                                                  text-decoration: none;
+                                                  border: 1px solid;
+                                                  display: inline-block;
+                                                  min-width: 120px;
+                                                  text-transform: uppercase;
+                                                  font-size: 16px;
+                                                  border-radius: 5px;
+                                                  margin: 4px;
+
+                                                  " />
+                                            </form>
+
+                                        }
+
+                                        <p>
+                                            <a href="@Url.Action("Index","Details",new { id = item.id })" class="learn-more detailslearn"><i class="fa fa-link"></i> Detay</a>
+                                        </p>
+                                    </div>
+                                    <span class="maxproduct"><img src="@Url.Content(item.Image_)" alt=""></span>
+                                </div>
+                                <div class="product-details">
+                                    <a href="@Url.Action("Index","Details",new { id = item.id })">
+                                        <h1>@Html.DisplayFor(modelItem => item.Pname)</h1>
+                                    </a>
+                                    <span class="price">
+                                        <span class="edd_price">@Html.DisplayFor(modelItem => item.Price)TL</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    <!-- /.productbox -->
+
+
+
+
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+</section>
+

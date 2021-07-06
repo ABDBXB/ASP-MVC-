@@ -1,0 +1,139 @@
+﻿@model Website4.Models.Member
+@{
+    ViewBag.Title = "CreateMembers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kullanıcı Oluştur</title>
+</head>
+<body>
+    @*Tüm Temel jqueryler Bir Arada Toplanıp Çağırıldı*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @* Html Formu Kullanarak Bu Safanın Controldeki HttpPost Eyleme Gönderiyoruz İsimlere Dikkat Edilmeli *@
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Kullanıcı Hesabı Oluştur</h4>
+        <hr />
+        @* Önceden Ayarladığımız Validationlerde bir yanlışlık varsa liste olarak Gösterir Eğer
+         (false) Gösterir
+         (true)  Göstermez
+        Biz Göstermedik Çümkü Hatalar İçin Alanın Hemen Altına ValidationMessageFor Yazdık*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @* Özel Calssta Ayarladığımız İsim Label Olarak Yazar *@
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* (Text Box) Girelecek Değerin Alanı / Girdiğimiz Değer Hangi Özelliğe Ait ör: ad -soyad VB... .  *@
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @* Önceden Ayarladığımız Validationlerde bir yanlışlık Varsa Hata Ne Olduğu Burada Gösteriyoruz. *@
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* Zaten Bu Hesap Eklendi Hatası *@
+        <h6 class="text-danger">@ViewBag.MemberError </h6>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* Bu alan içinde Şifre Yazılacağı için passwordfor olmalı tasarımı için de "rounded-right" Eklemeliyiz (Bootstrap)  *@
+                @Html.PasswordFor(model => model.Password_, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password_, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @*Veri Tabanda Şifre Tekrar Diye Bir Şey yok ama Modelde Kısmi Olarak Ekledik Ve Kontrollu Sağladık *@
+            @Html.LabelFor(model => model.ConfPass, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.ConfPass, new { @class = "form-control rounded-right" })
+                @Html.ValidationMessageFor(model => model.ConfPass, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address_, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address_, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @* Admine Karşı Liste True False Olarak Çıkmaması İçin Önce:
+                        Yeni Liste Oluşturuyoruz Bu Liste SeçimListesi(Value,text)ten İbaret
+                        Sonra Bu Oluşturduğumuz Listeyi DropDownlisteye Ekliyoruz*@
+                    <div class="checkbox">
+                        @{
+                            List<SelectListItem> Genderlist = new List<SelectListItem>();
+                            Genderlist.Add(new SelectListItem { Text = "Erkek", Value = "False" });
+                            Genderlist.Add(new SelectListItem { Text = "Kadın", Value = "True" });
+                        }
+                        @* Listelinin Kaynağı CinsyetListesi(GenderList) Olarak Ayarladık Başlık olarak ta Seçiniz.. Ayarladık *@
+                        @Html.DropDownListFor(model => model.Gender, Genderlist, "Seçiniz..", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type_, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @{
+                        List<SelectListItem> Typelist = new List<SelectListItem>();
+                        Typelist.Add(new SelectListItem { Text = "Admin", Value = "False" });
+                        Typelist.Add(new SelectListItem { Text = "Kullanıcı", Value = "True" });
+                    }
+                    @Html.DropDownListFor(model => model.Type_, Typelist, "Seçiniz..", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Oluştur" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+
+</body>
+</html>
+

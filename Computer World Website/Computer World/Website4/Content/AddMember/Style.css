@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{
+	background-image: url("../../Images/AddMember/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bton{
+  text-decoration: none;
+  color: #333;
+  font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+  font-weight: bold;
+  font-size: 17px;
+  border-radius:4px;
+  background-size: 200% auto;
+  box-shadow:0px 0px 15px 0 rgba(0,0,0,.1);
+}
+.bton:hover{
+  background-position: right center;
+  transition: all 0.5s ease-out;
+  color:#000;
+	
+}
+.bton-2{
+  background-image: linear-gradient(135deg, #ee9ca7 0%, #fbed96 51%, #ee9ca7 100%);
+  margin:5px;
+  padding:10px 25px;
+  text-align:center;
+  transition: all 0.5s ease-out;
+  
+}
+
+.header{
+font-family: 'Lobster', cursive;
+	font-size: 25px;
+	text-align: center;
+    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+	padding-top: 5px;
+}
+.header img{
+	display: block;
+	margin: 0px auto;
+}
+
+.RegisterLayer{
+	color: #000;
+	background-color: #fff;
+	margin: 0px auto;
+	width: 60%;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+	border-radius: 15px;
+}
+.FormPage{
+	padding: 20px;
+	width: 50%;
+	color: #000;
+	border-right: 2px dashed #DFDFDF ;
+	
+	
+}
+.FormPage input{
+	display: block;
+}
+.sidecontent{
+	font-family: 'Old Standard TT', serif;
+	font-weight: bold;
+	padding: 40px;
+	float: right;
+	width: 50%;
+	height: 100%;
+	text-align: center;
+	align-content: center;
+	
+
+}
+.sidecontent img{
+	width: 90%;
+	height: 80%;
+}
+@media only screen and (max-width: 1000px) {
+  .sidecontent {
+    float: none;
+	  width: 100%;
+	  padding: 10%;
+	  text-align: justify;
+  }
+	.FormPage {
+		width: 100%;
+		border-right: 0px #fff solid;
+	}
+}
+

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Website4.Models.Image>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Fotoğraflar Listesi</h2>
+
+<div class="input-group flex-nowrap">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class='bx bx-search-alt' style="font-size:20px;"></i></span>
+    </div>
+    <input type="text" id="Search" placeholder="Ürüne Ara" class="form-control">
+</div>
+
+
+<p>
+    @Html.ActionLink("Yeni Fotoğraf Ekle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Image_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Pname)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="Search">
+            <td>
+                <img src="@Url.Content(item.Image_)" alt="@item.Product.Pname" width="50" height="50" />
+            </td>
+            <td>
+                @item.Product.Pname
+            </td>
+            <td>
+                <a href="@Url.Action("Edit","Images",new { id = item.id })" class="btn btn-primary"><i class='bx bxs-edit'></i> Değiştir </a> |
+                <a href="@Url.Action("Details","Images",new { id = item.id })" class="btn btn-secondary"><i class='bx bx-list-ul'></i> Detay</a> |
+                <a href="@Url.Action("Delete","Images",new { id = item.id })" class="btn btn-danger"><i class='bx bx-x-circle'></i> Sil</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+@* Filtrelem Scripti :
+    Öncelikle textleri Control Etmek için Bir Contains(içerik) fonkiyonu oluşturuyoruz
+    Aşağıda #Search idden Gelen Yazıyı searchText Değişkenine Aktardık (Büyük Harf Varsa Küçüğe Dönüştürdük)
+    Sonra Tablonun İçindeki Değerler searchText İle Olışturduğumuz Fonkisyonla Karşılaştırıyoruz 
+    Yoksa Gizle Varsa Göster.
+*@
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+
+        }
+
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>

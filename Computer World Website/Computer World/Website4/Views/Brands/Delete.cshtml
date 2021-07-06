@@ -1,0 +1,32 @@
+﻿@model Website4.Models.Brand
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Marka Silme</h2>
+
+<h3>Bu Marka Silmek İstediğinizden Emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bname)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-default" /> |
+            @Html.ActionLink("Markaları Listele", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Website4.Models.Member>
+    @*Numaralanbilir Model Alacağını Söyliyoruz (Liste)*@
+    @{
+        //Hangi Şablonda Olacağını Ayarlıyoruz
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+            @* @Url.Action("Eylem Adı","Controller Adı") 
+                Kullanarak Admin yeni kullanıcı Oluştur Tıkladığı anda Kullanıcı Oluştur Eylemine Yönlendirir*@
+<a href="@Url.Action("CreateMembers","Adminpage")" class="btn btn-primary" target="_blank"><i class='bx bxs-user-plus'></i>  Yeni kullanıcı Ekle</a>
+<br />
+<hr />
+@* Kullanıcılar Listelemek için Tablo Oluşturduk Class(Tasarımı) Bootstrap KütüphaneSinden Alır  *@
+    <table class="table table-hover table-striped table-dark">
+        @* Tablonun Başlıkları Ayarlarız *@
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">Kuulanıcı_Adı</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Seçenekler</th>
+            </tr>
+        </thead>
+        @* Kullanıcıları Listelemek için Gelen Listenin Her Elemanı (İtem)
+            Tek Tek Alarak  Ekemanın Adı Emaili Telefon Numarası Gösterdik*@
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @* DisplayFor(Göstereceği Değer) Değer Göstermek için Kullanılabilir / HtmlHelper *@
+            @Html.DisplayFor(modelItem => item.FirstName)
+            @* Bu Şekilde de Gösterebilirz *@
+            @item.LastName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @* Burada likler Oluşturulur:
+        @Url.Action("Eylem Adı","Controller Adı",Taşıyacağı Değer)
+        Controller IDye Göre Hareket Ediyordu Bizde Şimdiki Elemenın idsi Veriyoruz
+            Kullanıcı Basınca Eyleme Gitmek için Hazır*@
+            <a href="@Url.Action("EditMembers","AdminPage",new { id = item.id })" class="btn btn-primary"><i class='bx bxs-edit'></i> Değiştir </a> |
+            <a href="@Url.Action("DetailsMembers","AdminPage",new { id = item.id })" class="btn btn-secondary"><i class='bx bx-list-ul'></i> Detay</a> |
+            <a href="@Url.Action("DeleteMembers","AdminPage",new { id = item.id })" class="btn btn-danger"><i class='bx bx-x-circle'></i> Sil</a>
+
+
+        </td>
+    </tr>
+        }
+
+    </table>
+

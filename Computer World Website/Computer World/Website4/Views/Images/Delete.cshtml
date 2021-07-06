@@ -1,0 +1,40 @@
+﻿@model Website4.Models.Image
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Fotoğrafı Sil</h2>
+
+<h3>Fotoğrafı Silmek Istediğinizden Emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Image_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Pname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Pname)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-default" /> |
+            @Html.ActionLink("Fotoğrafları Listele", "Index")
+        </div>
+    }
+</div>

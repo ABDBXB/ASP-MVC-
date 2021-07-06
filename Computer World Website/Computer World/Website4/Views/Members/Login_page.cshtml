@@ -1,0 +1,43 @@
+﻿@model Website4.Models.Member
+
+@{
+    Layout = null;
+}
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    @*CSS Kodlara Bağşama Kodu*@
+    <link href="~/Content/login/style.css" rel="stylesheet" />
+    <title>Giriş</title>
+    <style>
+        h5{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    @*Giriş Formu Başlangıç*@
+
+    <form class="box" method="post">
+        @*Form Post Türünden (Basılınca Veri Gönderir)*@
+        <h1>Giriş</h1>
+        <input type="text" name="Email" placeholder="Email"> @*Text Box İçinde Yazılan (Member.Email) Adlı Gönderilir*@
+        <input type="password" name="Password_" placeholder="Şifre"> @*Text Box İçinde Yazılan (Member.Password_) Adlı Gönderilir*@
+        @*Hesap Oluştur Tıklayınca Members Controldeki AddMember(Kullanıcı Ekle) Eylemi Çalıştırır /
+        Şifremi Unuttum Tıklayınca Members Controldeki ForgetPassword(Şifre Unutma) Eylemi Çalıştırır*@
+        <h5 align="left"><a href="@Url.Action("AddMember","Members")">Hesap Oluştur</a> / <a href="@Url.Action("ForgetPassword","Members")">Şifremi Unuttum</a></h5>
+        @*Hata Alanı Controler Tarafından içeriği gönderlir*@
+        <h4 style="color: red;"> @ViewBag.LoginError</h4>
+        @*Girişe Tıklayınca Members Controler İçindeki (Login_page(Member Model)) Eyleme Alınan Değerleri Gönderir*@
+        <input type="submit" name="" value="Giriş">
+    </form>
+    @*Giriş Formu Bitiş*@
+</body>
+</html>
+
+
+

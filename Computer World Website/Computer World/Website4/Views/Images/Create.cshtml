@@ -1,0 +1,51 @@
+﻿@model Website4.Models.Image
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Fotoğraf Ekle</h2>
+@* Bu Sayfada Gotoğraf Göndereceğimiz İçin Bir Dosya "multipart" Bir Şey Göndereceğimizi Söylememiz Gerekiyor   *@
+@* Gideceği Yer Create Eylemi Images Kontrollu İçinde  *@
+@using (Html.BeginForm(Html.BeginForm("Create", "Images", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductId, "Ürün Adı", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Image_, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group mb-10">
+                    <input type="file" name="fileimage" value="fileimage" class="form-control" aria-describedby="button-addon2">
+
+                    <div class="input-group-append">
+                        <input type="submit" value="Yükle" class="btn btn-success" />
+                        @Html.ValidationMessageFor(model => model.Image_, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            @* Uyarılar Gösterme Kısmı *@
+            <h5 style="color: green;">@TempData["result-success"]</h5>
+            <h5 style="color: red;">@TempData["result-error"]</h5>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Fotoğrafları Listele", "Index")
+</div>

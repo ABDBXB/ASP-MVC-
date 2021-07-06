@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_CWorld_V3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Models" Relationship="Self.FK__Models__BrandId__164452B1" FromRole="Brands" ToRole="Models" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__1A14E395" FromRole="Categories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Image_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Images__ProductI__25869641" FromRole="Images" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password_" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Address_" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="Boolean" />
+    <Property Name="Type_" Type="Boolean" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__MemberId__1CF15040" FromRole="Members" ToRole="Orders" />
+    <NavigationProperty Name="Baskets" Relationship="DB_CWorld_V3Model.FK__Baskets__MemberI__2C3393D0" FromRole="Member" ToRole="Basket" />
+  </EntityType>
+  <EntityType Name="Model">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="Int32" />
+    <Property Name="Mname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK__Models__BrandId__164452B1" FromRole="Models" ToRole="Brands" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__ModelI__1920BF5C" FromRole="Models" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="PTotalPrice" Type="Double" />
+    <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__Order__21B6055D" FromRole="OrderDetails" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__OrderDeta__Produ__22AA2996" FromRole="OrderDetails" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="TotalPrice" Type="Double" />
+    <Property Name="BuyingDate" Type="DateTime" Precision="3" />
+    <Property Name="DeliveryAdrees" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Status_" Type="Boolean" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Member" Relationship="Self.FK__Orders__MemberId__1CF15040" FromRole="Orders" ToRole="Members" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__21B6055D" FromRole="Orders" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModelId" Type="Int32" />
+    <Property Name="Category" Type="Int32" />
+    <Property Name="Pname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Explanation" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Image_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status_" Type="Boolean" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK__Products__Catego__1A14E395" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="Images" Relationship="Self.FK__Images__ProductI__25869641" FromRole="Products" ToRole="Images" />
+    <NavigationProperty Name="Model" Relationship="Self.FK__Products__ModelI__1920BF5C" FromRole="Products" ToRole="Models" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__22AA2996" FromRole="Products" ToRole="OrderDetails" />
+    <NavigationProperty Name="Baskets" Relationship="DB_CWorld_V3Model.FK__Baskets__Product__2B3F6F97" FromRole="Product" ToRole="Basket" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Models__BrandId__164452B1">
+    <End Role="Brands" Type="Self.Brand" Multiplicity="0..1" />
+    <End Role="Models" Type="Self.Model" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Models">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__1A14E395">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Images__ProductI__25869641">
+    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Images" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__MemberId__1CF15040">
+    <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__ModelI__1920BF5C">
+    <End Role="Models" Type="Self.Model" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Models">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__21B6055D">
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Produ__22AA2996">
+    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_CWorld_V3Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="Self.Brand" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="Models" EntityType="Self.Model" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK__Models__BrandId__164452B1" Association="Self.FK__Models__BrandId__164452B1">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="Models" EntitySet="Models" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__1A14E395" Association="Self.FK__Products__Catego__1A14E395">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Images__ProductI__25869641" Association="Self.FK__Images__ProductI__25869641">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__MemberId__1CF15040" Association="Self.FK__Orders__MemberId__1CF15040">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__ModelI__1920BF5C" Association="Self.FK__Products__ModelI__1920BF5C">
+      <End Role="Models" EntitySet="Models" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__21B6055D" Association="Self.FK__OrderDeta__Order__21B6055D">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Produ__22AA2996" Association="Self.FK__OrderDeta__Produ__22AA2996">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <EntitySet Name="Baskets" EntityType="DB_CWorld_V3Model.Basket" />
+    <AssociationSet Name="FK__Baskets__MemberI__2C3393D0" Association="DB_CWorld_V3Model.FK__Baskets__MemberI__2C3393D0">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Basket" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Baskets__Product__2B3F6F97" Association="DB_CWorld_V3Model.FK__Baskets__Product__2B3F6F97">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Basket" EntitySet="Baskets" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Basket">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BasketNo" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Member" Relationship="DB_CWorld_V3Model.FK__Baskets__MemberI__2C3393D0" FromRole="Basket" ToRole="Member" />
+    <NavigationProperty Name="Product" Relationship="DB_CWorld_V3Model.FK__Baskets__Product__2B3F6F97" FromRole="Basket" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__Baskets__MemberI__2C3393D0">
+    <End Type="DB_CWorld_V3Model.Member" Role="Member" Multiplicity="0..1" />
+    <End Type="DB_CWorld_V3Model.Basket" Role="Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Baskets__Product__2B3F6F97">
+    <End Type="DB_CWorld_V3Model.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="DB_CWorld_V3Model.Basket" Role="Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

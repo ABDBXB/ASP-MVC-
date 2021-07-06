@@ -1,0 +1,187 @@
+﻿
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bilgisayar Dünyası</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="">
+
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <!-- Fonts Codes =============================-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/3.7.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+    <!-- CSS Codes =============================-->
+    <link href="~/Content/ShopPage/style2.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/animate.css" rel="stylesheet">
+    <link href="~/Content/HomePage/style.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="~/Content/Details/style1.css" rel="stylesheet" />
+    <link href="~/Content/Details/lightslider.css" rel="stylesheet" />
+    <!--  SCRIPTS  in body =============================-->
+    <script src="~/Scripts/DetailsPage/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/DetailsPage/jquery.elevatezoom.js"></script>
+    <script src="~/Scripts/DetailsPage/lightslider.js"></script>
+   
+
+
+    <script>
+        $(document).ready(function () {
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+            $('#image-gallery').lightSlider({
+                gallery: true,
+                item: 1,
+                thumbItem: 9,
+                slideMargin: 0,
+                speed: 500,
+                auto: true,
+                loop: true,
+                onSliderLoad: function () {
+                    $('#image-gallery').removeClass('cS-hidden');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+
+    <!-- HEADER =============================-->
+    <header class="item header margin-top-0">
+        <div class="wrapper">
+            <nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                            <i class="fa fa-bars" style="color: black;"></i>
+                            <span class="sr-only">Toggle navigation</span>
+                        </button>
+                        <a href="index.html" class="navbar-brand brand"> B.Dünyası </a>
+                    </div>
+                    <div id="navbar-collapse-02" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="propClone"><a href="@Url.Action("Home_Page","Home")">Ana Sayfa</a></li>
+                            <li class="propClone"><a href="@Url.Action("Index","Shops")">Ürünler</a></li>
+                            <li class="propClone"><a href="@Url.Action("GetOrders","Orders")"><i class='bx bxs-package' style="margin-right: 6px;"></i>Sipariş</a></li>
+                            <!-- <li class="propClone"><a href="checkout.html">Checkout</a></li>-->
+                            <li class="propClone"><a href="@Url.Action("GetMemberBasket","Baskets",new { memberid=Session["Member_id"]})"><i class="fa fa-shopping-cart" style="margin-right: 6px;"></i>Sepet</a></li>
+                            <div style="margin-left: 6px; float: left; height: 80px; width: 200px;">
+                                <li style="margin-top: 15px;" class="propClone">
+                                    @{
+                                        if (Session["Member_Name"] == null)
+                                        {
+                                            <a href="@Url.Action("Login_page", "MEMBERs")" style="font-size: 17px;">  <i class="bx bx-user"></i> Giriş</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("EditMember","Members",new { id = Session["Member_id"] })" style="font-size: 17px;">  <i class="bx bx-user"></i> @Session["Member_Name"]</a>
+                                        }
+                                    }
+                                </li>
+                                <hr style="margin: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+                                <li class="propClone" style="margin-top: 1px;"><a href="@Url.Action("Login_page","MEMBERs")" style="font-size: 17px;"><i class="bx bx-exit"></i> ÇIKIŞ</a></li>
+                            </div>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="text-homeimage">
+                            <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
+                                Dünyanın Gleceğine
+                            </div>
+                            <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
+                                Hoş Geldiniz
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- STEPS =============================-->
+    <!-- side bar =============================-->
+    <!-- LATEST ITEMS =============================-->
+
+    @RenderBody()
+
+
+
+
+
+
+    <!-- FOOTER =============================-->
+    <div class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <p class="footernote">
+                    Bizimle İletişime Geçin
+                </p>
+                <ul class="social-iconsfooter">
+                    <li><a href="#"><i class="fa fa-phone"></i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                </ul>
+                <p>
+                    &copy; 2021 Bilgisayar Dünyası<br />
+                    Created By M/A
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS =============================-->
+    <script src="~/Scripts/ShopPage/jquery-.js"></script>
+    <script src="~/Scripts/ShopPage/bootstrap.min.js"></script>
+    <script src="~/Scripts/ShopPage/anim.js"></script>
+    <script src="~/Scripts/ShopPage/wow.min.js"></script>
+
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+        //----HOVER CAPTION---//
+        jQuery(document).ready(function ($) {
+            $('.fadeshop').hover(
+                function () {
+                    $(this).find('.captionshop').fadeIn(150);
+                },
+                function () {
+                    $(this).find('.captionshop').fadeOut(150);
+                }
+            );
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/AddMember/jquery.maskedinput.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Phone").mask("(999) 999-99-99");
+        });
+
+
+    </script>
+    <script src="~/Scripts/ShopPage/main.js"></script>
+
+    @*<script src="~/Scripts/DetailsPage/jquery-1.8.3.min.js"></script>*@
+    <script src="~/Scripts/DetailsPage/jquery.elevatezoom.js"></script>
+    <script src="~/Scripts/DetailsPage/lightslider.js"></script>
+
+
+</body>
+</html>

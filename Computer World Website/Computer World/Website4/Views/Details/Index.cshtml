@@ -1,0 +1,154 @@
+﻿@model Website4.Models.ProImage
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@* Bu Sayfa Hem Fotoğraf Listesinin İçindeki Fotoğraflar Gösterecek ve Bir Ürünün Bilgileri Gösterecek  *@
+
+
+
+<div class="container-lg" style=" box-shadow: 2px 2px 30px rgba(0,0,0,0.2); border-radius: 10px; padding: 35px; margin: 50px; ">
+    <div class="row">
+        <!--column1-->
+        <div class="col-lg-6">
+
+            <div class="slider">
+
+                <div class="preview">
+                    @* Ana Fotoğraf Gösterme Alanı id="zoom_mw"  *@
+                    <img src="@Url.Content(Model.products.Image_)" id="zoom_mw" alt="">
+
+
+                </div>
+            </div>
+            <div class="box">
+                <div class="item">
+                    <ul id="content-slider" class="content-slider">
+                        @* ilk Başta Ana Fotoğraf Ürün Fotoğrafı Aşağıdaki Slider İçine Eklenecektir  *@
+                        <li>
+                            <img src="@Url.Content(Model.products.Image_)" onclick="clickme(this)" alt="">
+                        </li>
+                        @* Fotoğraf Listesindeki Elemanları Tek Tek Slider İçinde Yazdıracak *@
+                        @foreach (var item in Model.Images)
+                        {
+                            <li>
+                                @* Buarada Eklenen Her Fotoğraf Onclick Özelliğe Sahiptir  *@
+                                <img src="@Url.Content(item.Image_)" alt="" onclick="clickme(this)">
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!--column1-->
+
+        <div class="col-md-6" style="margin-top: 100px;">
+            <div class="content">
+
+                <p class="brand" style="color: black; font-size:25px; text-align: justify;">Marka: @Model.products.Model.Brand.Bname / Model: @Model.products.Model.Mname </p>
+                <hr style="box-shadow: 2px 2px 30px rgba(0,0,0,0.2); width: 400px;" align="left" />
+                <h2>@Html.DisplayFor(modelItem => Model.products.Pname)</h2>
+
+                <textarea disabled="disabled" style=" width: 500px; height: 300px; padding: 10px; ">@Model.products.Explanation</textarea>
+                <p class="price" style="font-size: 25px; font-weight: 400;">Fiyatı: @Model.products.Price TL. </p>
+                @{
+                    <h5>Stokta: <b>@Model.products.Quantity </b> ÜrünKaldı.</h5>
+                    //Eğer Stok Durumune Göre  Yoksa Uyarı Verir /Varsa Kullanıcı Ürün Almak İçin Button Ve Adet Seçme Nesnesi Gösterir
+
+                    if (Model.products.Status_ == true)
+                    {
+                        <h3 style="color: red;">Bu Ürün Satılmıyor</h3>
+                    }
+                    else
+                    {
+                        //Alış Yapınca adet Ve Ürün İdsi Alıyoruz Ve  /Baskets/CreateBasket Eylemine Göneriyoruz
+                        <form action="/Baskets/CreateBasket" method="post">
+                            <input id="productid" type="text" name="productid" value="@Model.products.id" style="width: 60px; height:30px;" hidden="hidden" />
+                            @* Bu Alanda Maximum Adet Ürünün Adeti ile Eşitliyoruz minimum olarak 1 Varsayalan Değer 1 olarak Ayalarlarız   *@
+                            <p>Adet: <input id="quantity" type="number" name="quantity" value="1" style="width: 60px; height:30px;" max="@Model.products.Quantity" min="1" title="Stokta Sadece @Model.products.Quantity Ürün Var " /></p>
+                            <button id="button" type="submit" value="0" title="Stokta Sadece @Model.products.Quantity Ürün Var ">
+                                <i class="fa fa-shopping-cart"></i>
+                                Sepete Ekle
+                            </button>
+
+                        </form>
+                    }
+
+                }
+                <br />
+
+                <h4 style="color: red;">@TempData["not_enough"]</h4>
+
+                @*<input id="proid" type="text" name="proid" value="@Model.products.id" style="width: 60px; height:30px;" hidden="hidden" />
+        <input id="memberid" type="text" name="memberid" value="@Session["Member_id"]" style="width: 60px; height:30px;" hidden="hidden" />
+        <input id="maxq" type="text" name="maxq" value="@Model.products.Quantity" style="width: 60px; height:30px;" hidden="hidden" />*@
+
+
+
+
+                @*<script>
+            $(document).ready(function () {
+                $("#button").click(function () {
+                    var memberid = $("#memberid").val();
+                    if (memberid == 0) {
+                        alert("once giriş yapınız")
+                        return;
+                    }
+                    var quantity = $("#quantity").val();
+                    var maxq = $("#maxq").val();
+                    if (quantity > maxq || quantity >= 100) {
+                        alert("stokta sadece " + maxq + " Tane var")
+                        return;
+                    }
+                    var proid = $("#proid").val();
+                    debugger
+                    $.ajax({
+                        type: "Post",
+                        url: "/Baskets/CreateBasket?quantity=" + quantity + "&productid=" + proid,
+                        contentType: "html",
+                        success: alert("Sepete eklendi")
+
+
+                    })
+                })
+            })
+        </script>*@
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@* Bu Script Fotoğraflardaki Onclick Özellii Basılınca Basılan Fotoğrasın Yolu "zoom_mw" idli FotoğrafIn Yolu Oluyor  *@
+@* (Aşağıdaki Sliderdeki Fotoğraf Büyük Fotoğraf Olarak Gösterir) *@
+<script>
+    function clickme(smallImg) {
+
+        var fullImg = document.getElementById("zoom_mw");
+        fullImg.src = smallImg.src;
+        $("#zoom_mw").elevateZoom({ scrollZoom: true });
+    }
+
+</script>
+
+@* "zoom_mw" idli Fotoğraf Üzerine Fotoğraf Zoom Özelliği Çalıştırır *@
+<script>
+    $("#zoom_mw").elevateZoom({ scrollZoom: true });
+</script>
+
+

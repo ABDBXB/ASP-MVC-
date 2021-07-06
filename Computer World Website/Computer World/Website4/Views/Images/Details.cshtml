@@ -1,0 +1,35 @@
+﻿@model Website4.Models.Image
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Fotoğraf Detayları</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Image_)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Image_)" alt="Alternate Text" width="250" height="250"/>
+            @Html.DisplayFor(model => model.Image_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Pname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Pname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Değiştir", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Fotoğrafları Listele", "Index")
+</p>

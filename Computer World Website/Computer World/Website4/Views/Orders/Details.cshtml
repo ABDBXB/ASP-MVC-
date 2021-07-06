@@ -1,0 +1,69 @@
+﻿@model Website4.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Sipariş Özeti</h2>
+
+<div>
+    <h4>Sipariş</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryAdrees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryAdrees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status_)
+        </dt>
+
+        <dd>
+            @if (Model.Status_ == false)
+            {
+                <h5 style="color: red;"> Teslim Edilmedi</h5>
+            }
+            else
+            {
+                <h5 style="color: green;"> Teslim Edildi</h5>
+            }
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName) | 
+            @Html.DisplayFor(model => model.Member.LastName) | 
+            @Html.DisplayFor(model => model.Member.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Değiştir", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Siparişler listesi", "Index")
+</p>

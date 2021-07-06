@@ -1,0 +1,13 @@
+﻿<option value="">--Marka Seçiniz--</option>
+@if (ViewBag.brandlist != null)
+{
+
+    foreach (var item in ViewBag.brandlist)
+    {
+
+        <option value="@item.Value">@item.Text </option>
+
+    }
+
+}
+

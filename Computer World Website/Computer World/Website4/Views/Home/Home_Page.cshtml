@@ -1,0 +1,144 @@
+﻿@model IEnumerable<Website4.Models.Product>
+
+@{
+    ViewBag.Title = "Home_Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<style>
+    .send:hover {
+        background-color: red;
+    }
+</style>
+
+
+<div class="item content">
+
+    <div class="container toparea">
+        <div class="row text-center">
+            <!-- /.col-md-4 col -->
+            <div class="col-md-6 editContent" style="border-right: 1px #D3D3D3 solid;" data-scrollreveal="enter left over 1.5s after 0.1s ">
+                <div class="col">
+                    <div class="text-center">
+                        <img src="~/images/HomePageLayout/Hardware.jpg" class="rounded img-rounded" alt="No image" width="250" height="200">
+                    </div>
+                    <h3 class="numbertext">Bilgisayar Parçaları</h3>
+                    <p>
+                        Dünyadaki Tüm Bilgisayar Parçaları Sitemiz'de Bulabilirsiniz.
+                    </p>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.col-md-4 col -->
+            <div class="col-md-6 editContent" data-scrollreveal="enter right over 1.5s after 0.1s">
+                <div class="col">
+                    <div class="text-center">
+                        <img src="~/Images/HomePageLayout/programer man.jpg" class="rounded img-rounded" alt="No image" width="250" height="200">
+                    </div>
+                    <h3 class="numbertext">Çok Kolay Kullanım</h3>
+                    <p>
+                        Kolay ve Hızlı Alışveriş Yapmanız için en iyi websiteleri Hazırlıyoruz.
+                    </p>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT =============================-->
+
+<section class="item content">
+    <div class="container">
+        <div class="underlined-title" style=" text-align : center;">
+            <div class="editContent">
+                <h1 class="text-center latestitems">Son Ürünler&nbsp;</h1>
+            </div>
+            <div class="wow-hr type_short">
+                <span class="wow-hr-h">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star" style="font-size: 20px;"></i>
+                    <i class="fa fa-star"></i>
+                </span>
+            </div>
+        </div><br /><br />
+                    <h4 style="color: red;" align="center">@ViewBag.LoginError</h4>
+        <div class="row">
+            @* Sadece 6 Eleman Gösteririz  *@
+            @{int sayac = 0; }
+            @foreach (var item in Model)
+            {
+                if (sayac <= 5)
+                {
+                <div class="col-md-4" data-scrollreveal="enter left over 0.6s after 0.1s">
+                    <div class="productbox">
+                        <div class="fadeshop">
+                            <div class="captionshop text-center" style="display: none;">
+                                <h3>@Html.DisplayFor(modelItem => item.Pname)</h3>
+                                <p>
+                                    @item.Model.Brand.Bname
+                                </p>
+                                @* Ürün Satılıyorsa Satın Al Düğmesi Göster *@
+                                @if (item.Status_==false)
+                                {
+                                    //Satın Al Tıklayınca Bu /Home/Home_Page Eylemi Gerçekleştirir
+                                    <form action="/Home/Home_Page" method="post">
+
+                                        <input type="text" value="1" name="quantity" hidden="hidden" />
+                                        <input type="text" value="@item.id" name="productid" hidden="hidden" />
+
+                                        <input type="submit" value="Satın Al" class="send" onmouseover="this.style.backgroundColor = '#fff';this.style.color='#000'" onmouseout="this.style.backgroundColor = '#000'; this.style.color = '#fff'; this.style.transition='0.6s'"
+                                               style="padding: 8px 12px;
+                                                  background: transparent;
+                                                  color: #fff;
+                                                  font-weight: bold;
+                                                  text-decoration: none;
+                                                  border: 1px solid;
+                                                  display: inline-block;
+                                                  min-width: 120px;
+                                                  text-transform: uppercase;
+                                                  font-size: 16px;
+                                                  border-radius: 5px;
+                                                  margin: 4px;
+                                                  " />
+                                    </form>
+                                }
+
+                                <p>
+                                    <a href="@Url.Action("Index","Details",new { id = item.id })" class="learn-more detailslearn"><i class="fa fa-link"></i> Detay</a>
+                                </p>
+                            </div>
+                            <span class="maxproduct"><img src="@Url.Content(item.Image_)" alt=""></span>
+                        </div>
+                        <div class="product-details">
+                            <a href="@Url.Action("Index","Details",new { id = item.id })">
+                                <h1>@Html.DisplayFor(modelItem => item.Pname)</h1>
+                            </a>
+                            <span class="price">
+                                <span class="edd_price">@Html.DisplayFor(modelItem => item.Price)TL</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                }
+                sayac++;
+
+            }
+
+        </div>
+    </div>
+</section>
+
+<!-- BUTTON =============================-->
+<div class="item content">
+    <div class="container text-center">
+        <a href="@Url.Action("Index","Shops")" class="homebrowseitems">
+            Tüm Ürünlere Bak
+            <div class="homebrowseitemsicon">
+                <i class="fa fa-star fa-spin"></i>
+            </div>
+        </a>
+    </div>
+</div>
+<br />

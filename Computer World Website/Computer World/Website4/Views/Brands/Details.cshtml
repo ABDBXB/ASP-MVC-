@@ -1,0 +1,26 @@
+﻿@model Website4.Models.Brand
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Marka Detayları</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Değiştir", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Markaları Listele", "Index")
+</p>

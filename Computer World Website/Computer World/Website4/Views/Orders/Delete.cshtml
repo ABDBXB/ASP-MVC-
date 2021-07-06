@@ -1,0 +1,73 @@
+﻿@model Website4.Models.Order
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Sipariş Silme</h2>
+
+<h3>Bu Sipariş Silmek Istediğinizden emin misiniz?</h3>
+<div>
+    <h4>Sipariş</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryAdrees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryAdrees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-default" /> |
+            @Html.ActionLink("Siparişleri Listele", "Index")
+        </div>
+    }
+</div>

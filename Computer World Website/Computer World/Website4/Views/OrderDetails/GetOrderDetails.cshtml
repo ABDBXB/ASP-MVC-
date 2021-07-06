@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Website4.Models.OrderDetail>
+@{
+    ViewBag.Title = "GetOrderDetails";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container-fluid" style="padding: 60px;">
+
+
+
+    @* Kullanıcı için Sipariş Detayı  Gösterir *@
+
+    <table class="table  table-condensed" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ürün Foto</th>
+                <th scope="col">Ürün Adı</th>
+                <th scope="col">Adet</th>
+                <th scope="col">Toplam Fiyatı</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.Product.Image_)" alt="@item.Product.Pname" width="50px" height="50px;" />
+                </td>
+                <td>
+                    <a href="@Url.Action("Index","Details",new { id=item.ProductId })">@item.Product.Pname</a>
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.PTotalPrice
+                </td>
+
+
+            </tr>
+
+        }
+
+        @{
+        //Siparil Teslim Durumuna Göre iptal Et buttonu Gösterir Yada Yazdır 
+            foreach (var item in Model)
+            {
+
+                if (item.Order.Status_ == false)
+                {
+                    <tr>
+                        <td colspan="5" align="right">
+                            <a href="@Url.Action("DeleteOrder","OrderDetails",new { orderid = item.OrderId })"><button type="button" class="btn btn-danger"><i class='bx bx-x-circle'></i>  İptal Et</button></a>
+                        </td>
+
+                    </tr>
+                    break;
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" align="right">
+                            <a href="@Url.Action("PrintOrderDetails","OrderDetails",new { Oid = item.OrderId })" class="btn btn-light">Yazdır <i class='bx bx-printer'></i></a>
+                        </td>
+
+                    </tr>
+                    break;
+                }
+
+
+            }
+        }
+
+
+
+    </table>
+
+
+</div>
+

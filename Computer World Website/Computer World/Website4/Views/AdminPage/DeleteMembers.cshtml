@@ -1,0 +1,22 @@
+﻿@model Website4.Models.Member
+@{
+    ViewBag.Title = "DeleteMembers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>@Html.DisplayFor(model => model.Email) <br /> Kullanıcı Silmek İstediğinizden emin misiniz.</h3>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        //Gönderilen Bilgiler Kontrol Eder. CSRF(Siteler Arası İstek Sahteciliği) Saldırı Karşı Ayarlanır .
+        @Html.AntiForgeryToken()
+        //Silme Buttonu
+        <div class="form-actions no-color">
+            <input type="submit" value="Kullanıcı Sil" class="btn btn-danger" />
+        </div>
+    }
+
+</div>
+
